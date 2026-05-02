@@ -1,9 +1,6 @@
 ---
 name: Demo Nightly Release
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 "on":
   schedule:
     - cron: "17 2 * * *"
@@ -13,76 +10,16 @@ permissions:
   contents: write
 
 jobs:
-  validate-export-config:
-    uses: ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main
+  publish:
+    uses: ebirn/freecad_tools/.github/workflows/publish-nightly-release.yml@main
     with:
       config_path: export_config.yml
       project_root: .
       gui_session: run
-      dry_run: true
-      artifact_glob: prints/**
-
-  publish-nightly-release:
-    runs-on: ubuntu-latest
-    needs: validate-export-config
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-
-      - name: Build nightly artifact bundle
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p dist
-          {
-            echo "release_tag=nightly"
-            echo "commit=${GITHUB_SHA}"
-            echo "generated_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          } > dist/nightly-metadata.txt
-
-          tar -czf "dist/demo-artifacts-nightly.tar.gz" \
-            README.md \
-            export_config.yml \
-            example.FCStd \
-            .github/workflows/demo-ci.yml \
-            .github/workflows/demo-release-dry-run.yml \
-            .github/workflows/demo-nightly-release.yml \
-            dist/nightly-metadata.txt
-
-      - name: Create nightly release notes file
-        shell: bash
-        run: |
-          set -euo pipefail
-          {
-            echo "# Demo Nightly Release"
-            echo
-            echo "Rolling release with the latest demo artifact bundle."
-            echo
-            echo "## Assets"
-            echo "- demo-artifacts-nightly.tar.gz"
-            echo
-            echo "## Validation"
-            echo "- export config validation (dry-run): passed"
-          } > dist/nightly-release-notes.md
-
-      - name: Create or update nightly release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          if gh release view nightly >/dev/null 2>&1; then
-            gh release edit nightly --title "nightly" \
-              --notes-file dist/nightly-release-notes.md
-          else
-            gh release create nightly --title "nightly" \
-              --notes-file dist/nightly-release-notes.md
-          fi
-
-      - name: Upload nightly release asset
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh release upload nightly dist/demo-artifacts-nightly.tar.gz --clobber
+      nightly_tag: nightly
+      bundle_name: demo-artifacts-nightly.tar.gz
+      bundle_paths: >-
+        README.md export_config.yml example.FCStd
+        .github/workflows/demo-ci.yml
+        .github/workflows/demo-release-dry-run.yml
+        .github/workflows/demo-nightly-release.yml

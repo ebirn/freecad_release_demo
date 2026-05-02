@@ -1,9 +1,6 @@
 ---
 name: Demo Tagged Release
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 "on":
   push:
     tags:
@@ -11,7 +8,7 @@ env:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: Optional tag name override (for manual runs)
+        description: Optional tag name override for manual runs
         required: false
         type: string
 
@@ -19,87 +16,16 @@ permissions:
   contents: write
 
 jobs:
-  validate-export-config:
-    uses: ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main
+  publish:
+    uses: ebirn/freecad_tools/.github/workflows/publish-tagged-release.yml@main
     with:
       config_path: export_config.yml
       project_root: .
       gui_session: run
-      dry_run: true
-      artifact_glob: prints/**
-
-  publish-tagged-release:
-    runs-on: ubuntu-latest
-    needs: validate-export-config
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-
-      - name: Build demo artifact bundle
-        shell: bash
-        run: |
-          set -euo pipefail
-          release_tag="${{ github.event.inputs.release_tag ||
-            github.ref_name }}"
-          mkdir -p dist
-
-          {
-            echo "release_tag=${release_tag}"
-            echo "commit=${GITHUB_SHA}"
-            echo "generated_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          } > dist/release-metadata.txt
-
-          tar -czf "dist/demo-artifacts-${release_tag}.tar.gz" \
-            README.md \
-            export_config.yml \
-            example.FCStd \
-            .github/workflows/demo-ci.yml \
-            .github/workflows/demo-release-dry-run.yml \
-            dist/release-metadata.txt
-
-      - name: Create release notes file
-        shell: bash
-        run: |
-          set -euo pipefail
-          release_tag="${{ github.event.inputs.release_tag ||
-            github.ref_name }}"
-          {
-            echo "# Demo Release ${release_tag}"
-            echo
-            echo "This release is generated automatically"
-            echo "from the demo workflow."
-            echo
-            echo "## Assets"
-            echo "- demo-artifacts-${release_tag}.tar.gz"
-            echo
-            echo "## Validation"
-            echo "- export config validation (dry-run): passed"
-          } > dist/release-notes.md
-
-      - name: Create or update tag release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          release_tag="${{ github.event.inputs.release_tag ||
-            github.ref_name }}"
-          if gh release view "$release_tag" >/dev/null 2>&1; then
-            gh release edit "$release_tag" --notes-file dist/release-notes.md
-          else
-            gh release create "$release_tag" \
-              --title "${release_tag}" \
-              --notes-file dist/release-notes.md
-          fi
-
-      - name: Upload release asset
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          release_tag="${{ github.event.inputs.release_tag ||
-            github.ref_name }}"
-          gh release upload "$release_tag" \
-            "dist/demo-artifacts-${release_tag}.tar.gz" \
-            --clobber
+      release_tag: ${{ github.event.inputs.release_tag || '' }}
+      bundle_name_prefix: demo-artifacts
+      bundle_paths: >-
+        README.md export_config.yml example.FCStd
+        .github/workflows/demo-ci.yml
+        .github/workflows/demo-release-dry-run.yml
+        .github/workflows/demo-nightly-release.yml

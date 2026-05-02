@@ -1,7 +1,7 @@
 # freecad_release_demo
 
 This repository shows how to connect a FreeCAD project to reusable GitHub
-Actions workflows provided by `ebirn/freecad_tools`.
+Actions workflows provided by `ebirn/freecad_tools` with minimal wrapper YAML.
 
 ## What this demo does
 
@@ -12,17 +12,19 @@ Actions workflows provided by `ebirn/freecad_tools`.
 
 ## Integration with `freecad_tools`
 
-This demo references reusable workflows directly from the tools project:
+This demo references reusable workflows directly from the tools project and
+only sets consumer parameters:
 
 - `.github/workflows/demo-ci.yml` calls:
   - `ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main`
 - `.github/workflows/demo-release-dry-run.yml` calls:
-  - `ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main`
+  - `ebirn/freecad_tools/.github/workflows/publish-tagged-release.yml@main`
 - `.github/workflows/demo-nightly-release.yml` calls:
-  - `ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main`
+  - `ebirn/freecad_tools/.github/workflows/publish-nightly-release.yml@main`
 
 You can use the same pattern in your own FreeCAD repository by adding a job
-with `uses:` that points to the reusable workflow in `ebirn/freecad_tools`.
+with `uses:` that points to a reusable workflow in `ebirn/freecad_tools`, then
+setting only the input values for your repo paths and naming.
 
 For production usage, pin to a release tag or commit SHA instead of `@main`.
 
