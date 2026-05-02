@@ -1,0 +1,19 @@
+---
+name: Demo CI
+
+"on":
+  push:
+    branches:
+      - main
+      - "**"
+  pull_request:
+
+jobs:
+  build-artifacts-dry-run:
+    uses: ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main
+    with:
+      config_path: export_config.yml
+      project_root: .
+      gui_session: item
+      dry_run: true
+      artifact_glob: prints/**

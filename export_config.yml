@@ -1,0 +1,7 @@
+---
+export:
+  - name: demo_export
+    source: example.FCStd
+    bodies:
+      - Body
+    output: prints/demo_export.3mf

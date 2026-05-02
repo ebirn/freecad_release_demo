@@ -1,0 +1,44 @@
+---
+name: Demo Release Dry Run
+
+"on":
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build-artifacts-dry-run:
+    uses: ebirn/freecad_tools/.github/workflows/build-3mf-artifacts.yml@main
+    with:
+      config_path: export_config.yml
+      project_root: .
+      gui_session: run
+      dry_run: true
+      artifact_glob: prints/**
+
+  release-preview:
+    runs-on: ubuntu-latest
+    needs: build-artifacts-dry-run
+    steps:
+      - name: Create release preview notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release_preview
+          {
+            echo "# Release Preview"
+            echo
+            echo "Tag: ${GITHUB_REF_NAME}"
+            echo "Mode: dry-run"
+            echo
+            echo "## Artifacts"
+            echo "- freecad-tools-artifacts (uploaded by reusable workflow)"
+            echo "- release-preview (this bundle)"
+          } > release_preview/release-notes-preview.md
+
+      - name: Upload release preview bundle
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-preview
+          path: release_preview/**
