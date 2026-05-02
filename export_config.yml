@@ -1,6 +1,7 @@
 ---
 export:
   - name: demo_export
+    body_source: config
     source: example.FCStd
     bodies:
       - Body
