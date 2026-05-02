@@ -6,7 +6,7 @@ Actions workflows provided by `ebirn/freecad_tools` with minimal wrapper YAML.
 ## What this demo does
 
 - Uses reusable CI/release automation from `ebirn/freecad_tools`
-- Runs export validation in dry-run mode
+- Runs validation on every commit (no artifact publishing)
 - Publishes a tagged release artifact bundle
 - Publishes a rolling nightly artifact bundle
 
@@ -41,7 +41,12 @@ For production usage, pin to a release tag or commit SHA instead of `@main`.
 1. Push a branch and confirm the `Demo CI` workflow passes.
 2. Push a tag like `v0.0.1-demo` and confirm `Demo Tagged Release` passes.
 3. Open Releases and verify asset `demo-artifacts-v0.0.1-demo.tar.gz` is attached.
-4. Run `Demo Nightly Release` manually once and verify asset
+4. Download and inspect bundle contents, including generated outputs:
+   - `prints/demo_export.3mf`
+   - `docs/demo_export.pdf`
+   - `docs/bom.csv`
+   - `docs/images/*.png`
+5. Run `Demo Nightly Release` manually once and verify asset
    `demo-artifacts-nightly.tar.gz` is attached to release tag `nightly`.
 
 ## How to reuse in your project
@@ -55,4 +60,4 @@ For production usage, pin to a release tag or commit SHA instead of `@main`.
 ## Notes
 
 - Commit-triggered CI validates only and does not upload artifacts.
-- Release artifacts are created only by tag and nightly workflows.
+- Tag and nightly workflows run non-dry export and publish release assets.

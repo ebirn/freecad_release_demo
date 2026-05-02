@@ -5,4 +5,18 @@ export:
     source: example.FCStd
     bodies:
       - Body
+      - Body001
     output: prints/demo_export.3mf
+    techdraw:
+      pages: []
+      output_dir: docs
+      format: pdf
+      instructions: INSTRUCTIONS.md
+    bom:
+      source: assembly
+      output: docs/bom.csv
+    screenshots:
+      enabled: true
+      output_dir: docs/images
+      views: [isometric, front]
+      format: png

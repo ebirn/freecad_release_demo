@@ -16,6 +16,7 @@ jobs:
       config_path: export_config.yml
       project_root: .
       gui_session: run
+      dry_run: false
       nightly_tag: nightly
       bundle_name: demo-artifacts-nightly.tar.gz
       bundle_paths: >-
@@ -23,3 +24,5 @@ jobs:
         .github/workflows/demo-ci.yml
         .github/workflows/demo-release-dry-run.yml
         .github/workflows/demo-nightly-release.yml
+      generated_paths: >-
+        prints docs

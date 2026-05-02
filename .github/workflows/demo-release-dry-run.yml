@@ -22,6 +22,7 @@ jobs:
       config_path: export_config.yml
       project_root: .
       gui_session: run
+      dry_run: false
       release_tag: ${{ github.event.inputs.release_tag || '' }}
       bundle_name_prefix: demo-artifacts
       bundle_paths: >-
@@ -29,3 +30,5 @@ jobs:
         .github/workflows/demo-ci.yml
         .github/workflows/demo-release-dry-run.yml
         .github/workflows/demo-nightly-release.yml
+      generated_paths: >-
+        prints docs
