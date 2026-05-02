@@ -25,4 +25,4 @@ jobs:
         .github/workflows/demo-release-dry-run.yml
         .github/workflows/demo-nightly-release.yml
       generated_paths: >-
-        prints docs
+        generated
