@@ -34,9 +34,7 @@ For production usage, pin to a release tag or commit SHA instead of `@main`.
 
 1. Push a branch and confirm the `Demo CI` workflow passes.
 2. Push a tag like `v0.0.1-demo` and confirm `Demo Release Dry Run` passes.
-3. Download artifacts from Actions:
-    - `freecad-tools-artifacts`
-    - `release-preview`
+3. Review the release preview notes in the `release-preview` job logs.
 
 ## How to reuse in your project
 

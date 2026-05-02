@@ -39,9 +39,4 @@ jobs:
             echo "- freecad-tools-artifacts (uploaded by reusable workflow)"
             echo "- release-preview (this bundle)"
           } > release_preview/release-notes-preview.md
-
-      - name: Upload release preview bundle
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
-        with:
-          name: release-preview
-          path: release_preview/**
+          cat release_preview/release-notes-preview.md
