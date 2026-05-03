@@ -27,6 +27,6 @@ jobs:
       release_tag: ${{ github.event.inputs.release_tag || '' }}
       bundle_name_prefix: demo-artifacts
       bundle_paths: >-
-        README.md export_config.yml example.FCStd
+        README.md INSTRUCTIONS.md export_config.yml example.FCStd
       generated_paths: >-
         docs prints

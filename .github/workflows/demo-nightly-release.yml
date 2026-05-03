@@ -21,6 +21,6 @@ jobs:
       nightly_tag: nightly
       bundle_name: demo-artifacts-nightly.tar.gz
       bundle_paths: >-
-        README.md export_config.yml example.FCStd
+        README.md INSTRUCTIONS.md export_config.yml example.FCStd
       generated_paths: >-
         docs prints
