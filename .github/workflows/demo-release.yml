@@ -1,5 +1,5 @@
 ---
-name: Demo Tagged Release
+name: Tagged Release
 
 "on":
   push:
@@ -25,7 +25,7 @@ jobs:
       dry_run: false
       freecad_gui_binary: /opt/freecad/usr/bin/freecad
       release_tag: ${{ github.event.inputs.release_tag || '' }}
-      bundle_name_prefix: demo-artifacts
+      bundle_name: demo-artifacts
       bundle_paths: >-
         README.md INSTRUCTIONS.md export_config.yml example.FCStd
       generated_paths: >-
