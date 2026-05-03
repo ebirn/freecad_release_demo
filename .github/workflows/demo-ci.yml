@@ -16,4 +16,4 @@ jobs:
       project_root: .
       gui_session: item
       dry_run: true
-      artifact_glob: prints/**
+      artifact_glob: prints/** docs/**

@@ -28,8 +28,5 @@ jobs:
       bundle_name_prefix: demo-artifacts
       bundle_paths: >-
         README.md export_config.yml example.FCStd
-        .github/workflows/demo-ci.yml
-        .github/workflows/demo-release-dry-run.yml
-        .github/workflows/demo-nightly-release.yml
       generated_paths: >-
-        generated
+        docs prints

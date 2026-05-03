@@ -1,20 +1,25 @@
 ---
 export:
-  - name: demo_export
+  - name: Demo export project
+    metadata:
+      Project: "Demo Project metadata"
+      Version: "1.0.0-demo"
+      Author: "Demo Author"
     body_source: config
     source: example.FCStd
     bodies:
       - Body
       - Body001
     output: prints/demo_export.3mf
+    techdraw_source: all
     techdraw:
-      pages: []
       output_dir: docs
       format: pdf
       instructions: INSTRUCTIONS.md
     bom:
       source: assembly
       output: docs/bom.csv
+    screenshot_source: export
     screenshots:
       enabled: true
       output_dir: docs/images
