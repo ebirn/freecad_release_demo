@@ -17,7 +17,6 @@ jobs:
       project_root: .
       gui_session: run
       dry_run: false
-      freecad_gui_binary: /opt/freecad/usr/bin/freecad
       nightly_tag: nightly
       bundle_name: demo-artifacts-nightly.tar.gz
       bundle_paths: >-
