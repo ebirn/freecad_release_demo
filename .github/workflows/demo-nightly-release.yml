@@ -13,13 +13,13 @@ jobs:
   publish:
     uses: ebirn/freecad_tools/.github/workflows/reusable-publish-nightly-release.yml@main
     with:
-      config_path: export_config.yml
+      config_path: .freecad_tools/config.yml
       project_root: .
       gui_session: run
       dry_run: false
       nightly_tag: nightly
       bundle_name: demo-artifacts-nightly.tar.gz
       bundle_paths: >-
-        README.md INSTRUCTIONS.md export_config.yml example.FCStd
+        README.md INSTRUCTIONS.md .freecad_tools/config.yml example.FCStd
       generated_paths: >-
         docs prints
