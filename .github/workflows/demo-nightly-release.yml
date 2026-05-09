@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   publish:
-    uses: ebirn/freecad_tools/.github/workflows/publish-nightly-release.yml@main
+    uses: ebirn/freecad_tools/.github/workflows/reusable-publish-nightly-release.yml@main
     with:
       config_path: export_config.yml
       project_root: .
