@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   publish:
-    uses: ebirn/freecad_tools/.github/workflows/publish-tagged-release.yml@agent_reusable_workflow_cleanup
+    uses: ebirn/freecad_tools/.github/workflows/reusable-publish-tagged-release.yml@agent_reusable_workflow_cleanup
     with:
       config_path: export_config.yml
       project_root: .
