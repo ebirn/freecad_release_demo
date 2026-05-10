@@ -17,12 +17,13 @@ permissions:
 
 jobs:
   publish:
-    uses: ebirn/freecad_tools/.github/workflows/reusable-publish-tagged-release.yml@main
+    uses: ebirn/freecad_tools/.github/workflows/reusable-publish-release.yml@main
     with:
       config_path: .freecad_tools/config.yml
       project_root: .
       gui_session: run
       dry_run: false
+      is_rolling_release: false
       release_tag: ${{ github.event.inputs.release_tag || '' }}
       bundle_name: demo-artifacts
       bundle_paths: >-
