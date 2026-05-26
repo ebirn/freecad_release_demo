@@ -8,6 +8,7 @@ name: Demo Nightly Release
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   publish:
