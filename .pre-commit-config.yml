@@ -1,0 +1,10 @@
+minimum_pre_commit_version: "4.5.0"
+files: \.(fcstd|3mf|stl|yaml|yml)$
+repos:
+  - repo: https://github.com/ebirn/freecad_tools
+    rev: v0.6.0
+    hooks:
+    #  - id: freecad-export
+    - id: freecad-export-manual
+
+default_install_hook_types: [pre-commit, pre-push]
