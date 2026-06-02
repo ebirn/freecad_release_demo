@@ -32,6 +32,7 @@ For production usage, pin to a release tag or commit SHA instead of `@main`.
 
 - `.freecad_tools/config.yml`: defines export items and source document path
 - `example.FCStd`: your FreeCAD source file (kept in repo root in this demo)
+- `Justfile`: local wrapper for named manual exports
 - `.github/workflows/demo-ci.yml`: branch/PR validation
 - `.github/workflows/demo-release.yml`: tag-triggered release publishing
 - `.github/workflows/demo-nightly-release.yml`: scheduled rolling nightly release
@@ -48,6 +49,18 @@ For production usage, pin to a release tag or commit SHA instead of `@main`.
    - `docs/images/*.png`
 5. Run `Demo Nightly Release` manually once and verify asset
    `demo-artifacts-nightly.tar.gz` is attached to release tag `nightly`.
+
+For a local manual export of one named config item:
+
+```bash
+just export my_named_export
+```
+
+To list configured export item names:
+
+```bash
+just export-list
+```
 
 ## How to reuse in your project
 

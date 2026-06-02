@@ -1,6 +1,6 @@
 ---
 export:
-  - name: Demo export project
+  - name: my_named_export
     metadata:
       Project: "Demo Project metadata"
       Version: "1.0.0-demo"
