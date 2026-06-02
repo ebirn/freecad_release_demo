@@ -17,6 +17,10 @@ init:
 export name:
     source .venv/bin/activate && freecad-export --config {{config}} --name {{name}}
 
+# export all items defined in the config
+export-all:
+    source .venv/bin/activate && freecad-export --config {{config}}
+
 # list all available exports defined in the config
 export-list:
     source .venv/bin/activate && freecad-export --config {{config}} --list-exports
